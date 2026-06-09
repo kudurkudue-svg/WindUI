@@ -13045,11 +13045,16 @@ end
 
 au:CreateTopbarButton("Minimize","minus",function()
 au:Close()
-
-
-
-
-
+task.spawn(function()
+task.wait(0.3)
+if au.IsPC and au.OpenButtonMain and au.IsOpenButtonEnabled then
+au.OpenButtonMain:Visible(true)
+elseif au.IsPC and au.ToggleKey then
+local k=au.ToggleKey.Name
+al.WindUI:Notify({Title="Minimize",Content="Press "..k.." to reopen.",Icon="eye-off",Duration=5})
+end
+end)
+end,(au.Topbar.ButtonsType=="Default"and 997 or 998),nil,Color3.fromHex"#F4C948")
 
 
 
@@ -13262,7 +13267,7 @@ task.spawn(function()
 task.wait(0.4)
 au.UIElements.Main.Visible=false
 
-if au.OpenButtonMain and not au.Destroyed and not au.IsPC and au.IsOpenButtonEnabled then
+if au.OpenButtonMain and not au.Destroyed and au.IsOpenButtonEnabled then
 au.OpenButtonMain:Visible(true)
 end
 end)
